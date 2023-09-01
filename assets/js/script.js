@@ -53,7 +53,6 @@ $(document).ready(function () {
         event.preventDefault();
     });
     // <!-- emailjs to mail contact form data -->
-
 });
 
 document.addEventListener('visibilitychange',
@@ -71,7 +70,7 @@ document.addEventListener('visibilitychange',
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["frontend development", "backend development", "web designing", "android development", "web development"],
+    strings: ["Data Science", "AI Developer","backend development",  "web development"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
@@ -82,14 +81,15 @@ var typed = new Typed(".typing-text", {
 async function fetchData(type = "skills") {
     let response
     type === "skills" ?
-        response = await fetch("skills.json")
+        response = await fetch("./../../skills.json")
         :
-        response = await fetch("./projects/projects.json")
+        response = await fetch("./../../projects/projects.json")
     const data = await response.json();
     return data;
 }
 
 function showSkills(skills) {
+    
     let skillsContainer = document.getElementById("skillsContainer");
     let skillHTML = "";
     skills.forEach(skill => {
@@ -110,7 +110,7 @@ function showProjects(projects) {
     projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
         projectHTML += `
         <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
+      <img draggable="false" src="./../images/projects/${project.image}.png" alt="project" />
       <div class="content">
         <div class="tag">
         <h3>${project.name}</h3>
@@ -143,16 +143,18 @@ function showProjects(projects) {
 
     /* SCROLL PROJECTS */
     srtop.reveal('.work .box', { interval: 200 });
-
 }
 
-fetchData().then(data => {
-    showSkills(data);
-});
-
-fetchData("projects").then(data => {
-    showProjects(data);
-});
+//fetchData().then(data => {
+ //   showSkills(data);
+//});
+var data = fetchData();
+showSkills(data);
+var data = fetchData("projects");
+showProjects(data);
+//fetchData("projects").then(data => {
+//    showProjects(data);
+//});
 
 // <!-- tilt js effect starts -->
 VanillaTilt.init(document.querySelectorAll(".tilt"), {
